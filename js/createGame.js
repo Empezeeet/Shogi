@@ -1,6 +1,6 @@
 const game = {
   board: [],
-  currentPlayer: '',
+  currentPlayer: 'White',
   selectedPiece: null,
   validMoves: [],
   capturedPieces: {
@@ -21,63 +21,143 @@ const game = {
 
 const pieces = {
   king: {
-    black: '',
-    white: '',
-    moves: []
+    black: '王',
+    white: '玉',
+    moves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, -1],
+      [1, 0],
+      [1, 1]
+    ]
   },
-
   rook: {
-    black: '',
-    white: '',
-    moves: [],
-    promotedChar: '',
-    promotedMoves: []
+    black: '飛',
+    white: '飛',
+    moves: [
+      [-1, 0, 'mult'],
+      [1, 0, 'mult'],
+      [0, -1, 'mult'],
+      [0, 1, 'mult']
+    ],
+    promotedChar: '龍',
+    promotedMoves: [
+      [-1, 0, 'mult'],
+      [1, 0, 'mult'],
+      [0, -1, 'mult'],
+      [0, 1, 'mult'],
+      [-1, -1],
+      [-1, 1],
+      [1, -1],
+      [1, 1]
+    ]
   },
-
   bishop: {
-    black: '',
-    white: '',
-    moves: [],
-    promotedChar: '',
-    promotedMoves: []
+    black: '角',
+    white: '角',
+    moves: [
+      [-1, -1, 'mult'],
+      [-1, 1, 'mult'],
+      [1, -1, 'mult'],
+      [1, 1, 'mult']
+    ],
+    promotedChar: '馬',
+    promotedMoves: [
+      [-1, -1, 'mult'],
+      [-1, 1, 'mult'],
+      [1, -1, 'mult'],
+      [1, 1, 'mult'],
+      [-1, 0],
+      [1, 0],
+      [0, -1],
+      [0, 1]
+    ]
   },
-
-  goldKing: {
-    black: '',
-    white: '',
-    moves: [],
+  goldGeneral: {
+    black: '金',
+    white: '金',
+    moves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, 0]
+    ]
   },
-
-  silverKing: {
-    black: '',
-    white: '',
-    moves: [],
+  silverGeneral: {
+    black: '銀',
+    white: '銀',
+    moves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [1, 1],
+      [1, -1]
+    ],
+    promotedChar: '全',
+    promotedMoves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, 0]
+    ]
   },
-
   knight: {
-    black: '',
-    white: '',
-    moves: [],
-    promotedChar: '',
-    promotedMoves: []
+    black: '桂',
+    white: '桂',
+    moves: [
+      [-2, -1],
+      [-2, 1]
+    ],
+    promotedChar: '圭',
+    promotedMoves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, 0]
+    ]
   },
-
   lance: {
-    black: '',
-    white: '',
-    moves: [],
-    promotedChar: '',
-    promotedMoves: []
+    black: '香',
+    white: '香',
+    moves: [
+      [-1, 0, 'mult']
+    ],
+    promotedChar: '杏',
+    promotedMoves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, 0]
+    ]
   },
-
   pawn: {
-    black: '',
-    white: '',
-    moves: [],
-    promotedChar: '',
-    promotedMoves: []
+    black: '歩',
+    white: '歩',
+    moves: [
+      [-1, 0]
+    ],
+    promotedChar: 'と',
+    promotedMoves: [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, 0]
+    ]
   }
-}
+};
 
 /**
  * Tworzenie/resetowanie planszy
@@ -87,7 +167,7 @@ function initBoard() {
 
   boardContainer.innerHTML = '';
   game.board = [];
-  game.currentPlayer = 'white';
+  game.currentPlayer = 'White';
   game.selectedPiece = null;
   game.validMoves = [];
   game.capturedPieces = {
@@ -102,7 +182,6 @@ function initBoard() {
   game.gameOver = false;
 
 
-  // Utworzenie planszy
   for (let row = 1; row < 10; row++) {
     game.board[row] = [];
     for (let col = 1; col < 10; col++) {
@@ -117,10 +196,60 @@ function initBoard() {
     }
   }
 
-  // Ustawienie pionków
-  placePiece(1, 1, createPiece('lance', 'white'));
+  addPiece(1, 1, createPiece('lance', 'black'));
+  addPiece(1, 2, createPiece('knight', 'black'));
+  addPiece(1, 3, createPiece('silverGeneral', 'black'));
+  addPiece(1, 4, createPiece('goldGeneral', 'black'));
+  addPiece(1, 5, createPiece('king', 'black'));
+  addPiece(1, 6, createPiece('goldGeneral', 'black'));
+  addPiece(1, 7, createPiece('silverGeneral', 'black'));
+  addPiece(1, 8, createPiece('knight', 'black'));
+  addPiece(1, 9, createPiece('lance', 'black'));
+
+  addPiece(2, 2, createPiece('bishop', 'black'));
+  addPiece(2, 8, createPiece('rook', 'black'));
+
+  for (let col = 1; col <= 9; col++) {
+    addPiece(3, col, createPiece('pawn', 'black'));
+  }
+
+  addPiece(9, 1, createPiece('lance', 'white'));
+  addPiece(9, 2, createPiece('knight', 'white'));
+  addPiece(9, 3, createPiece('silverGeneral', 'white'));
+  addPiece(9, 4, createPiece('goldGeneral', 'white'));
+  addPiece(9, 5, createPiece('king', 'white'));
+  addPiece(9, 6, createPiece('goldGeneral', 'white'));
+  addPiece(9, 7, createPiece('silverGeneral', 'white'));
+  addPiece(9, 8, createPiece('knight', 'white'));
+  addPiece(9, 9, createPiece('lance', 'white'));
+
+  addPiece(8, 2, createPiece('rook', 'white'));
+  addPiece(8, 8, createPiece('bishop', 'white'));
+
+  for (let col = 1; col <= 9; col++) {
+    addPiece(7, col, createPiece('pawn', 'white'));
+  }
+}
+
+/**
+ * Inicjalizuje nasłuchiwanie zdarzeń w grze
+ */
+function initGameEvents() {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => {
+    const row = parseInt(cell.dataset.row);
+    const col = parseInt(cell.dataset.col);
+
+    cell.addEventListener('click', () => handleCellClick(row, col));
+  });
+
+  document.getElementById('promote-yes').addEventListener('click', () => handlePromotion(true));
+  document.getElementById('promote-no').addEventListener('click', () => handlePromotion(false));
 }
 
 window.onload = function () {
   initBoard();
+  initGameEvents();
+  updateCapturedPiecesDisplay();
+  updateGameStatus();
 };

@@ -1,22 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Shogi Game</title>
     <link rel="stylesheet" href="css/game.css">
-
     <script src="js/createGame.js"></script>
-    <script src="js/boardControls.js"></script>
-    <script src="js/pieceControls.js"></script>
+    <script src="js/playerPawnController.js"></script>
+    <script src="js/uiController.js"></script>
+    <script src="js/pieceController.js"></script>
+    <script src="js/aiPawnController.js"></script>
 </head>
 <body>
     <div class="container">
-
-        <div class="board-container">
-            <div class="board" id="board"></div>
+        <div class="game-header">
+            <div id="game-status">Current turn: White</div>
         </div>
+       
+        <div class="game-container">
+            <div class="side-container">
+                <div class="captured-pieces" id="ai-captured"></div>
+                <div class="captured-pieces" id="player-captured"></div>
+            </div>
+           
+            <div class="board-container">
+                <div class="board" id="board"></div>
+            </div>
 
+            <div class="side-container">
+            </div>
+        </div>
+       
+        <div class="promotion-overlay" id="promotion-overlay"></div>
+        <div class="promotion-dialog" id="promotion-dialog">
+            <div class="promotion-content">
+                <h2>Promote this piece?</h2>
+                <div class="promotion-buttons">
+                    <button id="promote-yes">Yes</button>
+                    <button id="promote-no">No</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
