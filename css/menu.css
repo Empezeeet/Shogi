@@ -32,3 +32,6 @@ body {
 .version:hover {
     color: rgba(100, 100, 100, 1);
 }
+.version:visited, .version:link, .version:active {
+    color: rgba(100, 100, 100, 0.5);
+}
