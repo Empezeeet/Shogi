@@ -62,7 +62,7 @@ function evaluateAIPosition(newBoard) {
                 score -= getPieceValue(piece);
             }
             // if piece is closer to the opponent side, increase score
-            if (piece && piece.color.toLowerCase() === 'black') {
+            if (piece && piece.color.toLowerCase() === 'black' && piece.type != "king") {
                 score += (9 - row); // closer to the opponent side
             } else if (piece && piece.color.toLowerCase() === 'white') {
                 score -= (9-row);
@@ -79,13 +79,21 @@ function evaluateAIPosition(newBoard) {
 
 function findBestMove(validMoves) {
     if (validMoves.length === 0) {
+        console.log("No valid moves for AI");
         return null; // Brak dostępnych ruchów
     }
 
     let bestMove = null;
     let bestScore = Infinity;
     for (const move of validMoves) {
-        let newBoard = JSON.parse(JSON.stringify(game.board)); // board with new move;
+        let newBoard = JSON.parse(JSON.stringify(game.board)); // board po wykonaniu ruchu.
+        if (move.fromHand) {
+            return move; // jesli mozeesz postawic nowa figure to zrob to.
+        }
+        
+        if (newBoard[move.toRow][move.toCol] && newBoard[move.toRow][move.toCol].type === 'king') {
+            return move; // jesli mozesz zbic krola to zrob to.
+        }
         let piece = newBoard[move.fromRow][move.fromCol];
         newBoard[move.toRow][move.toCol] = piece; // move piece
         let newScore = evaluateAIPosition(newBoard); 
@@ -95,6 +103,7 @@ function findBestMove(validMoves) {
         }
     }
     console.log("best score: " + bestScore);
+    console.log("best move: " + JSON.stringify(bestMove));
     return bestMove;
     
 }
@@ -123,9 +132,11 @@ function makeAIMove() {
         });
     });
     if (validMoves.length > 0) {
-        const bestMove = findBestMove(validMoves);
-        if (bestMove == null) {
-            console.log("err");
+        let bestMove = findBestMove(validMoves);
+        if (!bestMove) {
+            // jak nie ma ruchu to losuj :)
+            console.log("random move");
+            bestMove = validMoves[Math.floor(Math.random() * validMoves.length)];
         }
         if (bestMove.fromHand) { // postaw firgury ktore przejalem. (jesli taka instnieje)
             console.log("T");
