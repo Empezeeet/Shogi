@@ -6,12 +6,21 @@
     <title>Shōgi</title>
     <link rel="stylesheet" href="css/menu.css">
 
-    <script src=""></script>
+    <script>
+        fetch('https://api.github.com/repos/Empezeeet/Shogi/commits?per_page=1')
+        .then(res => res.json())
+        .then(res => {
+            document.getElementById('version').innerHTML = `<b>Aktualizacja:</b><br>${res[0].commit.message} (${res[0].sha.slice(0, 7)}) by ${res[0].commit.author.name}`;
+        })
+
+    </script>
 </head>
 <body>
     <h1>Shōgi</h1>
     <div class="play-button" onclick="window.location.href='game.html'">
         Play
     </div>
+    <h6><a href="https://github.com/Empezeeet/Shogi" target="_blank" class="version" id="version"></a></h6>
+    
 </body>
 </html>
