@@ -1,3 +1,10 @@
+
+:root {
+    --bg-Color: #fff;
+}
+
+
+
 /* Basic reset and general styles */
 * {
     margin: 0;
@@ -7,7 +14,7 @@
 
 body {
     font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f1e8;
+    background-color: var(--bg-Color);
     color: #333;
     line-height: 1.6;
     padding: 20px;
@@ -27,7 +34,7 @@ body {
     margin-bottom: 20px;
     text-align: center;
     background-color: #4a4237;
-    color: #f5f1e8;
+    color: var(--bg-Color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
@@ -196,7 +203,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
-    background-color: #f5f1e8;
+    background-color: var(--bg-Color);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);

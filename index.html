@@ -14,12 +14,18 @@
         })
 
     </script>
+    <script src="js/menuController.js"></script>
 </head>
 <body>
     <h1>Shōgi</h1>
-    <div class="play-button" onclick="window.location.href='game.html'">
+    <div class="play-button" onclick="playClick()">
         Play
     </div>
+    <br>
+    <select id="theme-select" onchange="changeTheme()">
+        <option value="dark">Ciemny</option>
+        <option value="light">Jasny</option>
+        </select>
     <h6><a href="https://github.com/Empezeeet/Shogi" target="_blank" class="version" id="version"></a></h6>
     
 </body>
