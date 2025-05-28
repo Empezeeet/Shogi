@@ -44,6 +44,7 @@ function getPieceValue(piece) {
     }
 }
 // liczy wartosc figur AI i odejmuje wartosc figur przeciwnika
+// nie mam zielonego pojecia jak ta funckja dziala razem z findBestMove ale dziala calkiem niezle (nie uzylem chatgpt)
 function evaluateAIPosition(newBoard) {
     
     let score = 0;
@@ -51,11 +52,6 @@ function evaluateAIPosition(newBoard) {
         for (let col = 1; col <= 9; col++) {
             const piece = newBoard[row][col];
             
-
-
-
-
-
             if (piece && piece.color.toLowerCase() === 'black') {
                 score += getPieceValue(piece);
             } else if (piece && piece.color.toLowerCase() === 'white') {
@@ -63,17 +59,37 @@ function evaluateAIPosition(newBoard) {
             }
             // if piece is closer to the opponent side, increase score
             if (piece && piece.color.toLowerCase() === 'black' && piece.type != "king") {
-                score += (9 - row); // closer to the opponent side
+                score += (9 - row)*2; // closer to the opponent side
             } else if (piece && piece.color.toLowerCase() === 'white') {
-                score -= (9-row);
+                score -= (9-row)*2;
             }
-            
+            // if piece is promoted, increase score
+            if (piece && piece.promoted) {
+                score += 2;
+            }
+            // if piece is closer to the center (horizontal and vertical), increase score
+            if (piece && piece.color.toLowerCase() === 'black') {
+                if (col >= 4 && col <= 6) {
+                    score -= 1; // closer to the center
+                }
+                if (row >= 4 && row <= 6) {
+                    score -= 1; // closer to the center
+                }
+            } else if (piece && piece.color.toLowerCase() === 'white') {
+                if (col >= 4 && col <= 6) {
+                    score += 1; // closer to the center
+                }
+                if (row >= 4 && row <= 6) {
+                    score += 1; // closer to the center
+                }
+            }
 
         }
     }
     let whitePiecesCount = newBoard.flat().filter(piece => piece && piece.color.toLowerCase() === 'white').length;
     let blackPiecesCount = newBoard.flat().filter(piece => piece && piece.color.toLowerCase() === 'black').length;
-    score -= (blackPiecesCount - whitePiecesCount) * 100; // bonus for more pieces
+    score -= (blackPiecesCount - whitePiecesCount) * 10000; // bonus for more pieces
+    
     return score;
 }
 
