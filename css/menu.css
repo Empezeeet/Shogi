@@ -1,3 +1,10 @@
+:root {
+    --bg-Color: #121212;
+    --text-Color: 255, 255, 255;
+    --accent-Color: #1DB954;
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -6,20 +13,22 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #121212;
+    background-color: var(--bg-Color);
     font-family: Arial, sans-serif;
-    color: white;
+    color: rgb(var(--text-Color));
+    transition: all 0.2s ease;
+
 }
 
 .play-button {
     width: 80px;
     height: 80px;
-    background-color: #1DB954;
+    background-color: var(--accent-Color);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 4px 10px rgba(var(--text-Color), 0.4);/*rgba(29, 185, 84, 0.3);*/
     transition: transform 0.2s, box-shadow 0.2s;
 }
 .play-button:hover {
@@ -47,8 +56,8 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: rgba(29, 185, 84, 0.5);
-    color: rgba(255, 255, 255, 0.5);
+    background-color: var(--accent-Color);
+    color: rgb(var(--text-Color));
 
     border: none;
     padding: 10px 20px;
@@ -57,9 +66,4 @@ body {
     font-size: 12px;
     transition: all 0.3s ease;
 
-}
-#theme-select:hover {
-    background-color: #1DB954;
-    color: white;
-    transition: all 0.3s ease;
 }
