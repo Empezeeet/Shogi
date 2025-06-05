@@ -206,8 +206,8 @@ function initBoard() {
   addPiece(1, 8, createPiece('knight', 'black'));
   addPiece(1, 9, createPiece('lance', 'black'));
 
-  addPiece(2, 2, createPiece('bishop', 'black'));
-  addPiece(2, 8, createPiece('rook', 'black'));
+  addPiece(2, 8, createPiece('bishop', 'black'));
+  addPiece(2, 2, createPiece('rook', 'black'));
 
   for (let col = 1; col <= 9; col++) {
     addPiece(3, col, createPiece('pawn', 'black'));
@@ -223,8 +223,8 @@ function initBoard() {
   addPiece(9, 8, createPiece('knight', 'white'));
   addPiece(9, 9, createPiece('lance', 'white'));
 
-  addPiece(8, 2, createPiece('rook', 'white'));
-  addPiece(8, 8, createPiece('bishop', 'white'));
+  addPiece(8, 8, createPiece('rook', 'white'));
+  addPiece(8, 2, createPiece('bishop', 'white'));
 
   for (let col = 1; col <= 9; col++) {
     addPiece(7, col, createPiece('pawn', 'white'));
