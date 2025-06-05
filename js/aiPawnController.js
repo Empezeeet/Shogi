@@ -22,26 +22,30 @@ function getValidMoves() {
 function getPieceValue(piece) {
     // Prosta funkcja zwracająca wartość figury
     // Można rozszerzyć o bardziej złożoną logikę
+    let value = 0;
     switch (piece.type) {
         case 'king':
-            return 1000; // Król ma najwyższą wartość
+            value = 1000; // Król ma najwyższą wartość
+            break;
         case 'goldGeneral':
-            return 5; // Złoty generał
+            value = 5; break; // Złoty generał
         case 'silverGeneral':
-            return 5; // Srebrny generał
+            value = 5; break; // Srebrny generał
         case 'knight':
-            return 3; // Rycerz
+            value = 3; break; // Rycerz
         case 'lance':
-            return 3; // Lancet
+            value = 3; break;// Lancet
         case 'bishop':
-            return 8; // Goniec
+            value = 8; break; // Goniec
         case 'rook':
-            return 9; // Wieża
+            value = 9; break; // Wieża
         case 'pawn':
-            return 1; // Pionek
+            value = 1; break; // Pionek
         default:
             return NaN; // Nieznana figura
     }
+    value *= piece.promoted ? 10 : 1;
+    return value;
 }
 // liczy wartosc figur AI i odejmuje wartosc figur przeciwnika
 // nie mam zielonego pojecia jak ta funckja dziala razem z findBestMove ale dziala calkiem niezle (nie uzylem chatgpt)

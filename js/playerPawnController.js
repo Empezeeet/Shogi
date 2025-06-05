@@ -198,7 +198,7 @@ function findValidMoves(row, col, piece) {
         moves = pieces[piece.type].moves;
     }
 
-    const direction = piece.color === 'black' ? 1 : -1;
+    const direction = piece.color === 'black' ? -1 : 1;
 
     for (const move of moves) {
         const moveRow = move[0] * direction;

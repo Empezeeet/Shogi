@@ -1,6 +1,6 @@
 const game = {
   board: [],
-  currentPlayer: 'White',
+  currentPlayer: 'Black',
   selectedPiece: null,
   validMoves: [],
   capturedPieces: {
@@ -167,7 +167,7 @@ function initBoard() {
 
   boardContainer.innerHTML = '';
   game.board = [];
-  game.currentPlayer = 'White';
+  game.currentPlayer = 'Black';
   game.selectedPiece = null;
   game.validMoves = [];
   game.capturedPieces = {
@@ -229,6 +229,8 @@ function initBoard() {
   for (let col = 1; col <= 9; col++) {
     addPiece(7, col, createPiece('pawn', 'white'));
   }
+  
+  makeAIMove();
 }
 
 /**
