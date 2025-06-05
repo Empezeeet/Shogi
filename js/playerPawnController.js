@@ -192,7 +192,7 @@ function findValidMoves(row, col, piece) {
     const validMoves = [];
     let moves;
 
-    if (pieces[piece.type].promotedMoves) {
+    if (piece.promoted) {
         moves = pieces[piece.type].promotedMoves;
     } else {
         moves = pieces[piece.type].moves;
